@@ -14,7 +14,10 @@ def arqLogicos(endLogico):
     listaEndLogicos = [ i.replace('\n', '') for i in listaEndLogicos]
     listaEndLogicos = [ i.split(' ') for i in listaEndLogicos]
 
-    print(listaEndLogicos)
+    dados = []
+    dados = [ i.split(',') for i in listaEndLogicos[0]]
+
+    print(dados)
 
     arquivoFisico.close
     arquivoLogico.close
