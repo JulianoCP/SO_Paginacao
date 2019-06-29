@@ -4,7 +4,6 @@ tamanhoRam = 32
 tamanhoProcesso = 64
 endLogico = list();
 endFisico = list();
-endLogico = ['1','1','0','0','0','0','0','0','0','0','0','1','1','0','1']
 
 def arqLogicos(endLogico):
     arquivoLogico = open(endLogico,'r')
@@ -17,38 +16,36 @@ def arqLogicos(endLogico):
     dados = []
     dados = [ i.split(',') for i in listaEndLogicos[0]]
 
-    print(dados)
+    for i in range(len(listaEndLogicos)):
+        dados = [ y.split(',') for y in listaEndLogicos[i]]
+
+        x = dados[0].pop(0)
+        z = dados[0].pop(0)
+
+        if (x == '0') and (z == '0'):
+            endFisico = ['1'] + ['0'] + ['0'] + dados[0]
+            arquivoFisico.write(str(endFisico))
+            arquivoFisico.write('\n')
+        elif (x == '0') and (z == '1'):
+            endFisico = ['1'] + ['0'] + ['1'] + dados[0]
+            arquivoFisico.write(str(endFisico))
+            arquivoFisico.write('\n')
+        elif (x == '1') and (z == '0'):
+            endFisico = ['1'] + ['1'] + ['0'] + dados[0]
+            arquivoFisico.write(str(endFisico))
+            arquivoFisico.write('\n')
+        elif (x == '1') and (z == '1'):
+            endFisico = ['1'] + ['1'] + ['1'] + dados[0]
+            arquivoFisico.write(str(endFisico))
+            arquivoFisico.write('\n')
 
     arquivoFisico.close
     arquivoLogico.close
 
-if (endLogico[0] == '0') and (endLogico[1] == '0'):
-    print("Endereco Logico: %s" % endLogico)
-    print("Frame: 100")
-    endLogico.pop(0)
-    endLogico.pop(0)
-    endFisico = ['1']+ ['0'] + ['0'] + endLogico
-    print("Endereco Fisico: %s" % endFisico)
-elif (endLogico[0] == '0') and (endLogico[1] == '1'):
-    print("Endereco Logico: %s" % endLogico)
-    print("Frame: 101")
-    endLogico.pop(0)
-    endLogico.pop(0)
-    endFisico = ['1']+ ['0'] + ['1'] + endLogico
-    print("Endereco Fisico: %s" % endFisico)
-elif (endLogico[0] == '1') and (endLogico[1] == '0'):  
-    print("Endereco Logico: %s" % endLogico)  
-    print("Frame: 110")
-    endLogico.pop(0)
-    endLogico.pop(0)
-    endFisico = ['1']+ ['1'] + ['0'] + endLogico
-    print("Endereco Fisico: %s" % endFisico)
-elif (endLogico[0] == '1') and (endLogico[1] == '1'):  
-    print("Endereco Logico: %s" % endLogico)  
-    print("Frame: 111")
-    endLogico.pop(0)
-    endLogico.pop(0)
-    endFisico = ['1']+ ['1'] + ['1'] + endLogico
-    print("Endereco Fisico: %s" % endFisico)
-    print("\n")
+
+def main():
     arqLogicos("endLogicos.txt")
+
+
+if __name__ == '__main__':
+    main()
