@@ -9,17 +9,18 @@ endFisico = list();
 paginas = list();
 paginas = [11,2,10,11,10,2,3,10,2,0,4,2,1,5,3,2,0,6,7,5,2,5,9,10,1,11]
 
-def delPage(tabPaginas,num): ## vai ser uma funcao para deletar uma linha
+def delPage(tabPaginas,num):
     arqTab = open('tabPaginas.txt','r')
     listaEndTab = arqTab.readlines()
-    listaEndTab = [ i.replace('\n', '') for i in listaEndTab]
 
-    # for i in listaEndTab:
-    #     print(i[2]+i[3])
-    #     if (i[2] == str(num) or (i[2]+i[3]) == str(num)): // Funcao para deletar nao funciona kkk 
-    #         print("achou")
+    arqReplace = open('tabPaginas.txt','w')
+    for line in listaEndTab:
+        if (line[2] != str(num)) and (line[2]+line[3] != str(num)):
+            arqReplace.write(line)
+
 
     arqTab.close
+    arqReplace.close
 
 def addPage(num):
     arqFisico = open('endFisicos.txt','r')
@@ -32,7 +33,7 @@ def addPage(num):
             arqTab.write(i)
             arqTab.write('\n')
             break
-
+    delPage('tabPaginas.txt',10)
     arqFisico.close
     arqTab.close
 
