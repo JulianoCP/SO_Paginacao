@@ -1,25 +1,25 @@
 import time
+import sys
 
 qtd = 0
+qtdPaginas = 3
 tamanhoPaginas = 10
 tamanhoRam = 32
 tamanhoProcesso = 64
 endLogico = list();
 endFisico = list();
 paginas = list();
-paginas = [11,2,10,11,10,2,3,10,2,0,4,2,1,5,3,2,0,6,7,5,2,5,9,10,1,11]
+paginas = [11,2,5,6,8,1,2,3,10,2,0,4,2,1,5,3,2,0,6,7,5,2,5,9,10,1,11,6,5,9,0,1,2]
 
 def delPage(tabPaginas,num):
     arqTab = open('tabPaginas.txt','r')
     listaEndTab = arqTab.readlines()
+    arqTab.close
 
     arqReplace = open('tabPaginas.txt','w')
     for line in listaEndTab:
         if (line[2] != str(num)) and (line[2]+line[3] != str(num)):
             arqReplace.write(line)
-
-
-    arqTab.close
     arqReplace.close
 
 def addPage(num):
@@ -32,10 +32,13 @@ def addPage(num):
         if(i[2] == str(num) or (i[2]+i[3]) == str(num)):
             arqTab.write(i)
             arqTab.write('\n')
-            break
-    delPage('tabPaginas.txt',10)
-    arqFisico.close
-    arqTab.close
+            arqFisico.close
+            arqTab.close
+            return
+    
+    print("[PAGE INVALID]:[REMOVE PROCESS]")
+    sys.exit()
+    
 
 
 def tabPagina(tabela,num):
@@ -45,13 +48,18 @@ def tabPagina(tabela,num):
     listTab = [ i.replace('\n', '') for i in listTab]
 
     for i in listTab:
-        if(i[2] == str(num) or (i[2]+i[3]) == str(num)):
+        if(i[2] == str(num)):
             x = len(i)
             s = i[6:x]
             print("[HIT]: [%s" % s)
             return
+        elif((i[2]+i[3]) == str(num)):
+            x = len(i)
+            s = i[7:x]
+            print("[HIT]: [%s" % s)
+            return
 
-    print("[MISS]: [PAGE-FAULT]")
+    print("[MISS]:[PAGE-FAULT]")
 
     arqTab.close
     addPage(num)
@@ -97,9 +105,14 @@ def arqLogicos(endLogico):
 
 def main():
     arqLogicos("endLogicos.txt")
+    global qtd
     for i in paginas:
         tabPagina("tabPaginas.txt",i)
         time.sleep(1)
+        if qtd == qtdPaginas:
+            qtd = 0
+            delPage('tabPaginas.txt',10)
+        qtd += 1
 
 
 
