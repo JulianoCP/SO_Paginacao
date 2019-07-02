@@ -9,7 +9,7 @@ tamanhoProcesso = 64
 endLogico = list();
 endFisico = list();
 paginas = list();
-paginas = [11,2,5,6,8,1,2,3,10,2,0,4,2,1,5,3,2,0,6,7,5,2,5,9,10,1,11,6,5,9,0,1,2]
+paginas = [1,2,5,6,8,1,2,3,10,2,0,4,2,1,5,3,2,0,6,7,5,2,5,9,10,1,11,6,5,9,0,1,2]
 
 def delPage(tabPaginas,num):
     arqTab = open('tabPaginas.txt','r')
